@@ -1,0 +1,84 @@
+how to save data from template to database using post without admin
+
+https://www.youtube.com/watch?v=WSJFj25wHd4
+
+
+
+    def deleteall (self,r,pk):
+        for i in pk:
+            if i.isnumeric():
+                try:
+                    obj = Product.objects.get(pk=int(i))
+                    obj.delete()
+                except:
+                    continue
+            else:
+                continue
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+path('api/deleteall/productdetails/<str:pk>', views.ProductTable.deleteall()),
+
+    def delete (self,r,pk):
+        obj = Product.objects.get(pk=pk)
+        obj.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+------------------------------------------------------------------------------------------------------------
+
+
+# Load XLSX workbook
+wb = Workbook("workbook.xlsx")
+
+# Password protect Excel file
+wb.getSettings().setPassword("1234")
+
+# Encrypt by specifying the encryption type
+wb.setEncryptionOptions(EncryptionType.XOR, 40)
+
+# Specify Strong Encryption type (RC4,Microsoft Strong Cryptographic Provider)
+wb.setEncryptionOptions(EncryptionType.STRONG_CRYPTOGRAPHIC_PROVIDER, 128)
+
+# Save Excel file
+wb.save("workbook-encrypted.xlsx")
+----------------------------------------------
+Sub protectmyworkbook()
+Application.DisplayAlerts = False
+ActiveWorkbook.SaveAs Filename:="C:\exceltrainingvideos\protectworkbookusingvba.xlsm", FileFormat:=52, Password:="TPio&2019", writerespassword:="TPio&2020"
+Application.DisplayAlerts = True
+End Sub
+
+Private Sub Workbook_Open()
+protectmyworkbook
+End Sub
+-----------------------------------------------------
+https://analyticsindiamag.com/outlier-detection-using-z-score-a-complete-guide-with-python-codes/
+link for analysis of ML
+------------------------------------------------------
+https://pythonsimplified.com/difference-between-onehotencoder-and-get_dummies/#:~:text=(1)%20The%20get_dummies%20can',will%20natively%20handle%20unknown%20categories.
+
+--------------------------------------------------------
+
+CREATE Procedure prcInsertEmployees
+(@json VARCHAR(MAX) = '')
+AS
+BEGIN
+
+
+INSERT INTO tblEmployee 
+SELECT name, city, department, gender
+	FROM OPENJSON(@json)
+	WITH (
+		name NVARCHAR(50) '$.name',
+		city NVARCHAR(50) '$.city',
+		department NVARCHAR(50) '$.department',
+		gender VARCHAR(1) '$.gender'
+		)
+
+
+--select * from tblemployee
+--truncate table tblemployee
+
+
+--INSERT INTO tblEmployee VALUES
+--('Rahul','Bangalore','Cricket','M')
+
+END
